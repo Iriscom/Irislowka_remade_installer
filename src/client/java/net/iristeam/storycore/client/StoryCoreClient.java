@@ -6,5 +6,6 @@ public class StoryCoreClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+
     }
 }
