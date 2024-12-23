@@ -6,5 +6,7 @@ public class StoryCore implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+
     }
 }
