@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "storycore",
+  "version": "${version}",
+  "name": "StoryCore",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/storycore/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.iristeam.storycore.client.StoryCoreClient"
+    ],
+    "main": [
+      "net.iristeam.storycore.StoryCore"
+    ]
+  },
+  "mixins": [
+    "storycore.mixins.json",
+    {
+      "config": "storycore.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
