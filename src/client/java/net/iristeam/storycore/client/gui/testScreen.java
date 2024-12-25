@@ -20,6 +20,8 @@ import net.minecraft.text.ClickEvent.Action;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
 
+import static net.iristeam.storycore.client.StoryCoreClient.LOGGER;
+
 //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
@@ -47,10 +49,11 @@ public class testScreen extends Screen {
         this.buttons.clear();
         Text text = this.isHardcore ? Text.translatable("testScreen.spectate") : Text.translatable("testScreen.respawn");
         this.buttons.add((ButtonWidget)this.addDrawableChild(ButtonWidget.builder(text, (button) -> {
-            this.client.player.requestRespawn();
             button.active = false;
+            this.close();
         }).dimensions(this.width / 2 - 100, this.height / 4 + 72, 200, 20).build()));
-        this.buttons.add(this.titleScreenButton);
+//        this.buttons.add(this.titleScreenButton);
+//        LOGGER.info(this.buttons.toString());
         this.setButtonsActive(false);
         this.scoreText = Text.translatable("testScreen.score").append(": ").append(Text.literal(Integer.toString(this.client.player.getScore())).formatted(Formatting.YELLOW));
     }
@@ -108,8 +111,10 @@ public class testScreen extends Screen {
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.message != null && mouseY > (double)85.0F) {
+            LOGGER.info(this.textRenderer.toString());
             Objects.requireNonNull(this.textRenderer);
             if (mouseY < (double)(85 + 9)) {
+                LOGGER.info("s");
                 Style style = this.getTextComponentUnderMouse((int)mouseX);
                 if (style != null && style.getClickEvent() != null && style.getClickEvent().getAction() == Action.OPEN_URL) {
                     this.handleTextClick(style);
