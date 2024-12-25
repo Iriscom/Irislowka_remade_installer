@@ -31,64 +31,37 @@ import static net.iristeam.storycore.client.StoryCoreClient.LOGGER;
 @Environment(EnvType.CLIENT)
 public class testScreen extends Screen {
     private int ticksSinceDeath;
-    private final Text message;
     private final boolean isHardcore;
-    private Text scoreText;
     private final List<ButtonWidget> buttons = Lists.newArrayList();
     @Nullable
     private ButtonWidget titleScreenButton;
 
     public testScreen(@Nullable Text message, boolean isHardcore) {
-        super(Text.translatable(isHardcore ? "testScreen.title.hardcore" : "testScreen.title"));
-        this.message = message;
+        super(Text.translatable("Hello IrisTEAM!"));
         this.isHardcore = isHardcore;
     }
 
     protected void init() {
         this.ticksSinceDeath = 0;
         this.buttons.clear();
-        Text text = this.isHardcore ? Text.translatable("testScreen.spectate") : Text.translatable("testScreen.respawn");
+        Text text = Text.translatable("Tipo cnopka");
         this.buttons.add((ButtonWidget)this.addDrawableChild(ButtonWidget.builder(text, (button) -> {
-            button.active = false;
+            button.active = true;
             this.close();
-        }).dimensions(this.width / 2 - 100, this.height / 4 + 72, 200, 20).build()));
+        }).dimensions(this.width / 2 - 100, this.height / 4 + 72, 100, 20).build()));
 //        this.buttons.add(this.titleScreenButton);
 //        LOGGER.info(this.buttons.toString());
-        this.setButtonsActive(false);
-        this.scoreText = Text.translatable("testScreen.score").append(": ").append(Text.literal(Integer.toString(this.client.player.getScore())).formatted(Formatting.YELLOW));
     }
 
     public boolean shouldCloseOnEsc() {
         return false;
     }
 
-    private void quitLevel() {
-        if (this.client.world != null) {
-            this.client.world.disconnect();
-        }
-
-        this.client.disconnect(new MessageScreen(Text.translatable("menu.savingLevel")));
-        this.client.setScreen(new TitleScreen());
-    }
-
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        context.fillGradient(0, 0, this.width, this.height, 1615855616, -1602211792);
         context.getMatrices().push();
-        context.getMatrices().scale(2.0F, 2.0F, 2.0F);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2 / 2, 30, 16777215);
+        context.getMatrices().scale(3.0F, 3.0F, 3.0F);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2 / 3, 30, 13041663);
         context.getMatrices().pop();
-        if (this.message != null) {
-            context.drawCenteredTextWithShadow(this.textRenderer, this.message, this.width / 2, 85, 16777215);
-        }
-
-        context.drawCenteredTextWithShadow(this.textRenderer, this.scoreText, this.width / 2, 100, 16777215);
-        if (this.message != null && mouseY > 85) {
-            Objects.requireNonNull(this.textRenderer);
-            if (mouseY < 85 + 9) {
-                Style style = this.getTextComponentUnderMouse(mouseX);
-                context.drawHoverEvent(this.textRenderer, style, mouseX, mouseY);
-            }
-        }
 
         super.render(context, mouseX, mouseY, delta);
         if (this.titleScreenButton != null && this.client.getAbuseReportContext().hasDraft()) {
@@ -98,46 +71,13 @@ public class testScreen extends Screen {
     }
 
     @Nullable
-    private Style getTextComponentUnderMouse(int mouseX) {
-        if (this.message == null) {
-            return null;
-        } else {
-            int i = this.client.textRenderer.getWidth(this.message);
-            int j = this.width / 2 - i / 2;
-            int k = this.width / 2 + i / 2;
-            return mouseX >= j && mouseX <= k ? this.client.textRenderer.getTextHandler().getStyleAt(this.message, mouseX - j) : null;
-        }
-    }
 
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.message != null && mouseY > (double)85.0F) {
-            LOGGER.info(this.textRenderer.toString());
-            Objects.requireNonNull(this.textRenderer);
-            if (mouseY < (double)(85 + 9)) {
-                LOGGER.info("s");
-                Style style = this.getTextComponentUnderMouse((int)mouseX);
-                if (style != null && style.getClickEvent() != null && style.getClickEvent().getAction() == Action.OPEN_URL) {
-                    this.handleTextClick(style);
-                    return false;
-                }
-            }
-        }
 
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
 
     public boolean shouldPause() {
         return false;
     }
 
-    public void tick() {
-        super.tick();
-        ++this.ticksSinceDeath;
-        if (this.ticksSinceDeath == 20) {
-            this.setButtonsActive(true);
-        }
-
-    }
 
     private void setButtonsActive(boolean active) {
         for(ButtonWidget buttonWidget : this.buttons) {
