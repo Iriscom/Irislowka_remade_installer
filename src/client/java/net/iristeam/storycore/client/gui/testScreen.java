@@ -6,21 +6,28 @@ import java.util.List;
 import java.util.Objects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ConfirmScreen;
-import net.minecraft.client.gui.screen.MessageScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.item.ArrowItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.ClickEvent.Action;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
 
+
+import static com.ibm.icu.text.PluralRules.Operand.j;
 import static net.iristeam.storycore.client.StoryCoreClient.LOGGER;
+import static net.minecraft.client.gui.screen.LevelLoadingScreen.drawChunkMap;
 
 //
 // Source code recreated from a .class file by IntelliJ IDEA
@@ -30,6 +37,9 @@ import static net.iristeam.storycore.client.StoryCoreClient.LOGGER;
 
 @Environment(EnvType.CLIENT)
 public class testScreen extends Screen {
+    public static final SplashTextRenderer MERRY_X_MAS_ = new SplashTextRenderer("Merry X-mas!");
+    private static final int TEXT_X = 123;
+    private static final int TEXT_Y = 69;
     private int ticksSinceDeath;
     private final boolean isHardcore;
     private final List<ButtonWidget> buttons = Lists.newArrayList();
@@ -53,21 +63,18 @@ public class testScreen extends Screen {
 //        LOGGER.info(this.buttons.toString());
     }
 
-    public boolean shouldCloseOnEsc() {
-        return false;
-    }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         context.getMatrices().push();
         context.getMatrices().scale(3.0F, 3.0F, 3.0F);
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2 / 3, 30, 13041663);
         context.getMatrices().pop();
-
+        context.getMatrices().push();
+        context.getMatrices().scale(1.5F, 1.5F, 1.5F);
+        context.drawItemWithoutEntity(new ItemStack(Blocks.COMMAND_BLOCK),this.width / 4 + 29, this.height / 4 + 18);
+        context.setShaderColor(160, 238 , 93, 1);
+        context.getMatrices().pop();
         super.render(context, mouseX, mouseY, delta);
-        if (this.titleScreenButton != null && this.client.getAbuseReportContext().hasDraft()) {
-            context.drawTexture(ClickableWidget.WIDGETS_TEXTURE, this.titleScreenButton.getX() + this.titleScreenButton.getWidth() - 17, this.titleScreenButton.getY() + 3, 182, 24, 15, 15);
-        }
-
     }
 
     @Nullable
