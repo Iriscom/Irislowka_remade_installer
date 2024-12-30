@@ -1,9 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.iristeam.storycore.mixin.client",
+  "package": "net.iristeam.storycore.client.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
