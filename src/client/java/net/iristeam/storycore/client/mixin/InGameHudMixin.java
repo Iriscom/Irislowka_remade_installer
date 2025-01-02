@@ -31,7 +31,6 @@ public class InGameHudMixin {
     private static final Identifier PEREKLADKA3         = Identifier.of(MOD_ID,"textures/gui/in-game/perekladka3.png");
     private static final Identifier STRELKA_VPRAVO_BLUE = Identifier.of(MOD_ID,"textures/gui/in-game/strelka_vpravo_blue.png");
     private static final Identifier STRELKA_VLEVO_BLUE  = Identifier.of(MOD_ID,"textures/gui/in-game/strelka_vlevo_blue.png");
-    private static final Date time = new Date();
     private static final Window window = MinecraftClient.getInstance().getWindow();
     private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
     @Inject(
@@ -39,6 +38,7 @@ public class InGameHudMixin {
             at = @At("TAIL")
     )
     public void render(DrawContext context, float tickDelta, CallbackInfo ci) {
+        Date time = new Date();
 //        context.drawText(textRenderer, Text.of(String.valueOf(window.getFramebufferWidth())),  10,10,2,false);
         context.drawTexture(ANTENA      , 20, 5, 0, 0, 16, 16,16,16);
         context.drawTexture(PEREKLADKA1 , 4, 25, 0, 0, 96, 1,96,1);
