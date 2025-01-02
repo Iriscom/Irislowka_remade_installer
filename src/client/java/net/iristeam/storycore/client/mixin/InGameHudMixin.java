@@ -45,10 +45,10 @@ public class InGameHudMixin {
         context.drawTexture(PEREKLADKA1 , window.getScaledWidth()-100, 24, 0, 0, 96, 1,96,1);
         context.drawTexture(PEREKLADKA3 , window.getScaledWidth()-66, 13, 0, 0, 1, 11, 1, 11);
         context.drawTexture(PEREKLADKA3 , window.getScaledWidth()-46, 13, 0, 0, 1, 11, 1, 11);
-        context.drawTexture(CLOCKS      , window.getScaledWidth()-95, 16, 0, 0, 5, 5, 5, 5);
-        context.drawTexture(SUN         , window.getScaledWidth()-44, 17, 0, 0, 5, 5, 5, 5);
-        context.drawText(textRenderer   , time.getHours() +":"+time.getMinutes()  ,  window.getScaledWidth()-88 , 15,16777215,false);
-        context.drawText(textRenderer   , 12 +"°",  window.getScaledWidth()-64 , 15,16777215,false);
+        context.drawTexture(CLOCKS      , window.getScaledWidth()-99, 16, 0, 0, 5, 5, 5, 5);
+        context.drawTexture(SUN         , window.getScaledWidth()-44, 16, 0, 0, 5, 5, 5, 5);
+        context.drawText(textRenderer   , time.getHours() +":"+time.getMinutes()  ,  window.getScaledWidth()-93 , 15,16777215,false);
+        context.drawText(textRenderer   , 12 +"°",  window.getScaledWidth()-63 , 15,16777215,false);
         context.drawText(textRenderer   , "sun",  window.getScaledWidth()-38 , 15,16777215,false);
     }
 }
