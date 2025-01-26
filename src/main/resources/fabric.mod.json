@@ -15,7 +15,17 @@
     ],
     "main": [
       "net.iristeam.storycore.StoryCore"
+    ],
+    "modmenu": [
+      "net.iristeam.storycore.client.ModMenuIntegration"
     ]
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "Mod Menu Wiki": "https://modmenu.dev"
+      }
+    }
   },
   "mixins": [
     "storycore.mixins.json",
@@ -27,6 +37,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "modmenu": "7.2.2"
   }
 }

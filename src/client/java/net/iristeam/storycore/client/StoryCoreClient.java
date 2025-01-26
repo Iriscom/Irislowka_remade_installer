@@ -2,6 +2,7 @@ package net.iristeam.storycore.client;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.iristeam.storycore.client.gui.testScreen;
+import net.iristeam.storycore.client.gui.testrScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -20,9 +21,7 @@ public class StoryCoreClient implements ClientModInitializer {
     public void onInitializeClient() {
         KeyBindingHelper.registerKeyBinding(CONTROL);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CONTROL.wasPressed() && MC.currentScreen == null) {
-                client.setScreen(new testScreen(Text.literal("a"),false));
-            }
+            while (CONTROL.wasPressed() && MC.currentScreen == null) client.setScreen(new testScreen());
         });
     }
 }
