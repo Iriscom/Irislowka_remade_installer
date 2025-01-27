@@ -18,6 +18,9 @@
     ],
     "modmenu": [
       "net.iristeam.storycore.client.ModMenuIntegration"
+    ],
+    "fabric-datagen": [
+      "net.iristeam.storycore.StoryCoreDataGenerator"
     ]
   },
   "custom": {
