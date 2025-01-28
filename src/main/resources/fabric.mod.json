@@ -16,9 +16,6 @@
     "main": [
       "net.iristeam.storycore.StoryCore"
     ],
-    "modmenu": [
-      "net.iristeam.storycore.client.ModMenuIntegration"
-    ],
     "fabric-datagen": [
       "net.iristeam.storycore.StoryCoreDataGenerator"
     ]
