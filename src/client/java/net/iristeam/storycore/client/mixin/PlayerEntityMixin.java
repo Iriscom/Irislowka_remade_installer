@@ -1,5 +1,6 @@
 package net.iristeam.storycore.client.mixin;
 
+import net.iristeam.storycore.client.interfaces.InGameHudInterface;
 import net.iristeam.storycore.world.dimensions.ModDimensions;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.entity.Entity;
@@ -21,28 +22,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Mixin(Entity.class)
+import static net.iristeam.storycore.client.StoryCoreClient.MC;
+
+@Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
-    @Shadow public abstract void tick();
 
-    @Shadow @Final private static Logger LOGGER;
-
-    @Shadow public abstract boolean teleport(ServerWorld world, double destX, double destY, double destZ, Set<PositionFlag> flags, float yaw, float pitch);
-
+    private long startTime;
+    private boolean teleporting;
     @Unique
-    Entity entity = (Entity) (Object) this;
+    PlayerEntity entity = (PlayerEntity) (Object) this;
     @Inject(method = "tick",at = @At("TAIL"))
     private void noTick(CallbackInfo ci) {
-        if (entity instanceof PlayerEntity && entity.getWorld().getDimensionKey() == DimensionTypes.OVERWORLD
-                && entity.getBlockY() >= 600) {
-            Set<PositionFlag> set = EnumSet.noneOf(PositionFlag.class);
-            entity.teleport(entity.getServer().getWorld(ModDimensions.STORY_SPACE_LEVEL_KEY),entity.getX(), entity.getY(), entity.getZ(),
-                    set ,entity.getYaw(),entity.getPitch());
-            LOGGER.info("PlayerEntityMixin tick");
+        if (!teleporting&&entity.getServer()!=null && entity.getWorld().getDimensionKey() == DimensionTypes.OVERWORLD && entity.getBlockY() >= 600) {
+            startTime = System.currentTimeMillis();
+            teleporting = true;
+            ((InGameHudInterface)MC.inGameHud).setTeleporting(true);
         }
-//        TeleportCommand
-        entity.setNoGravity(entity.getWorld().getDimensionKey() == ModDimensions.STORY_SPACE_DIM_TYPE);
+        if(teleporting && System.currentTimeMillis() - startTime > 1500){
+            teleporting = false;
+            Set<PositionFlag> set = EnumSet.noneOf(PositionFlag.class);
+            entity.teleport(entity.getServer().getWorld(ModDimensions.STORY_SPACE_LEVEL_KEY),0,75, 0,
+                    set,entity.getYaw(),entity.getPitch());
+        }
     }
 }
