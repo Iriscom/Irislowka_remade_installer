@@ -2,9 +2,11 @@ package net.iristeam.storycore.client;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.iristeam.storycore.client.renderer.dimension.SpaceSkyType;
 import net.iristeam.storycore.world.dimensions.ModDimensions;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Overlay;
 import net.minecraft.client.option.KeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.api.ClientModInitializer;

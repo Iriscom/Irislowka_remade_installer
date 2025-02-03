@@ -2,17 +2,12 @@ package net.iristeam.storycore.client.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.iristeam.storycore.client.interfaces.InGameHudInterface;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.util.Window;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,11 +20,12 @@ import static net.iristeam.storycore.client.StoryCoreClient.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin({InGameHud.class})
-public class InGameHudMixin implements InGameHudInterface {
-    private static final float sec2pi = 3000/180;
-    private static boolean tel = false;//defaults false
-    private static boolean tel1 = false;//defaults false
-    private static long startTime;
+public class InGameHudMixin {
+//    private static final float sec2pi = 3000/180;
+//    private static boolean tel = false;//defaults false
+//    private static boolean tel1 = false;//defaults false
+//    private static long startTime;
+//    private static Screen beforScreen = null;
     private static final Identifier CLOCKS              = Identifier.of(MOD_ID,"textures/gui/in-game/clocks.png");
     private static final Identifier ANTENA              = Identifier.of(MOD_ID,"textures/gui/in-game/antena1.png");
     private static final Identifier SUN                 = Identifier.of(MOD_ID,"textures/gui/in-game/sun1.png");
@@ -50,20 +46,22 @@ public class InGameHudMixin implements InGameHudInterface {
     )
     public void render(DrawContext context, float tickDelta, CallbackInfo ci) {
 //        LOGGER.info(String.valueOf(tel));
-        if (tel1){
-            startTime = System.currentTimeMillis();
-            tel1 = false;
-        }
-        if (tel){
-            int a = (int) (Math.abs(MathHelper.sin((float) Math.toRadians((double) (System.currentTimeMillis() - startTime) /sec2pi)))*255);
-//            LOGGER.info(String.valueOf(((int) System.currentTimeMillis()-startTime)/5.5));
-//            LOGGER.info(String.valueOf(Math.toDegrees(System.currentTimeMillis()-startTime/5.5)));
-//            LOGGER.info(String.valueOf(MathHelper.cos((float) Math.toDegrees(System.currentTimeMillis()-startTime/5.5))));
-            LOGGER.info(String.valueOf(a));
-            context.fill(0,0,window.getScaledWidth(),window.getScaledHeight(), ColorHelper.Argb.getArgb(a,0,0,0));
-            if ((System.currentTimeMillis() - startTime) /sec2pi>180) tel = false;
-            return;
-        }
+//        if (tel1){
+//            startTime = System.currentTimeMillis();
+//            tel1 = false;
+//        }
+//        if (tel){
+//            int a = (int) (Math.abs(MathHelper.sin((float) Math.toRadians((double) (System.currentTimeMillis() - startTime) /sec2pi)))*255);
+////            LOGGER.info(String.valueOf(((int) System.currentTimeMillis()-startTime)/5.5));
+////            LOGGER.info(String.valueOf(Math.toDegrees(System.currentTimeMillis()-startTime/5.5)));
+////            LOGGER.info(String.valueOf(MathHelper.cos((float) Math.toDegrees(System.currentTimeMillis()-startTime/5.5))));
+////            LOGGER.info(String.valueOf(a));
+//            beforScreen = MinecraftClient.getInstance().currentScreen;
+//            MinecraftClient.getInstance().setScreen(new aScreen());
+////            context.fill(0,0,window.getScaledWidth(),window.getScaledHeight(), ColorHelper.Argb.getArgb(a,0,0,0));
+//            if ((System.currentTimeMillis() - startTime) /sec2pi>180) tel = false;
+//            return;
+//        }
         if(MC==null) return;
         if(weather==null){ weather = MC.world; return;}
         Date time = new Date();
@@ -90,18 +88,5 @@ public class InGameHudMixin implements InGameHudInterface {
             }
         } else context.drawText(textRenderer, "непонятно", window.getScaledWidth() - 38, 15, 16777215, false);
 
-    }
-
-    @Override
-    public boolean isTeleporting() {
-        LOGGER.info(String.valueOf(tel));
-        return tel;
-    }
-
-    @Override
-    public void setTeleporting(boolean Telep) {
-        tel = Telep;
-        tel1 = Telep;
-        LOGGER.info(String.valueOf(tel));
     }
 }
