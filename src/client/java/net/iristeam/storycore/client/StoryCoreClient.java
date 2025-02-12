@@ -3,6 +3,8 @@ package net.iristeam.storycore.client;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.iristeam.storycore.client.gui.Iris.irisScreen;
+
 import net.iristeam.storycore.client.renderer.dimension.SpaceSkyType;
 import net.iristeam.storycore.world.dimensions.ModDimensions;
 import net.minecraft.client.MinecraftClient;
@@ -28,7 +30,7 @@ public class StoryCoreClient implements ClientModInitializer {
     public void onInitializeClient() {
         KeyBindingHelper.registerKeyBinding(CONTROL);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CONTROL.wasPressed() && MC.currentScreen == null) client.setScreen(new testScreen());
+            while (CONTROL.wasPressed() && MC.currentScreen == null) client.setScreen(new irisScreen());
         });
         DimensionRenderingRegistry.registerDimensionEffects(id("story_space"),new SpaseDimensionEffect());
         DimensionRenderingRegistry.registerSkyRenderer(ModDimensions.STORY_SPACE_LEVEL_KEY, new SpaceSkyType());
