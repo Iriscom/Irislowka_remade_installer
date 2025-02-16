@@ -24,7 +24,7 @@ public class StoryCoreClient implements ClientModInitializer {
     public static final String MOD_ID = "storycore";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final MinecraftClient MC = MinecraftClient.getInstance();
-    private static final KeyBinding CONTROL = new KeyBinding("key.storycore.test", GLFW.GLFW_KEY_G, "key.categories.misc");
+    private static final KeyBinding CONTROL = new KeyBinding("key.storycore.test", GLFW.GLFW_KEY_I, "key.categories.misc");
     public static Identifier id(String name) {return new Identifier(MOD_ID, name);}
     @Override
     public void onInitializeClient() {
