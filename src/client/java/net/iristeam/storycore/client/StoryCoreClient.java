@@ -2,10 +2,14 @@ package net.iristeam.storycore.client;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.iristeam.storycore.client.gui.Iris.irisScreen;
 
 import net.iristeam.storycore.client.renderer.dimension.SpaceSkyType;
+import net.iristeam.storycore.client.renderer.entity.MdLoverseRenderer;
+import net.iristeam.storycore.entity.ModEntitys;
+import net.iristeam.storycore.entity.custom.MdLoverseEntity;
 import net.iristeam.storycore.world.dimensions.ModDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Overlay;
@@ -32,6 +36,9 @@ public class StoryCoreClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (CONTROL.wasPressed() && MC.currentScreen == null) client.setScreen(new irisScreen());
         });
+
+        EntityRendererRegistry.register(ModEntitys.MD_LOVERSE, MdLoverseRenderer::new);
+
         DimensionRenderingRegistry.registerDimensionEffects(id("story_space"),new SpaseDimensionEffect());
         DimensionRenderingRegistry.registerSkyRenderer(ModDimensions.STORY_SPACE_LEVEL_KEY, new SpaceSkyType());
     }
