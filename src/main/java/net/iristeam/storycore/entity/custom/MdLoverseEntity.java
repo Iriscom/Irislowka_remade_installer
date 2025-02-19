@@ -16,7 +16,7 @@ import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInst
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class MdLoverseEntity  extends AnimalEntity implements GeoEntity {
+public class MdLoverseEntity extends AnimalEntity implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     public MdLoverseEntity(EntityType<? extends AnimalEntity> entityType, World world) {
