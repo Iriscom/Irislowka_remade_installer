@@ -37,6 +37,14 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
+        }
+    }
     maven { url "https://maven.shedaniel.me/" }
     maven {
         name = 'GeckoLib'
