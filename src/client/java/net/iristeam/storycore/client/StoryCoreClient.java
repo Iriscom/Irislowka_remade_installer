@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.iristeam.storycore.client.gui.Iris.irisScreen;
+import net.iristeam.storycore.client.gui.Iris.iris_scriptsScreen;
 
 import net.iristeam.storycore.client.renderer.dimension.SpaceSkyType;
 import net.iristeam.storycore.client.renderer.entity.MdLoverseRenderer;
@@ -34,7 +34,7 @@ public class StoryCoreClient implements ClientModInitializer {
     public void onInitializeClient() {
         KeyBindingHelper.registerKeyBinding(CONTROL);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (CONTROL.wasPressed() && MC.currentScreen == null) client.setScreen(new irisScreen());
+            while (CONTROL.wasPressed() && MC.currentScreen == null) client.setScreen(new iris_scriptsScreen());
         });
 
         EntityRendererRegistry.register(ModEntitys.MD_LOVERSE, MdLoverseRenderer::new);
